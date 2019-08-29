@@ -24,6 +24,16 @@ app.on('ready', function () {
         slashes: true
     }));
 
+    createLogin();
+
+    mainWindow.on('closed', function () {
+        app.quit();
+    });
+
+    loginWindow.focus(); // Make main window on top
+});
+
+function createLogin() {
     loginWindow = new BrowserWindow({
         title: 'Login',
         webPreferences: {
@@ -39,16 +49,14 @@ app.on('ready', function () {
         protocol: 'file:',
         slashes: true
     }));
-
-    mainWindow.on('closed', function () {
-        app.quit();
-    });
-
-    loginWindow.focus(); // Make main window on top
-});
+}
 
 ipcMain.on('send-code', function(e, code) {
     mainWindow.webContents.send('send-code', code);
     loginWindow.close();
     mainWindow.focus();
+});
+
+ipcMain.on('user-error', function(e) {
+    createLogin();
 });
