@@ -14,3 +14,11 @@ ipcRenderer.on('send-code', function(e, code) {
         });
     });
 });
+
+function exit() {
+    ipcRenderer.send('exit');
+}
+
+function relog() {
+    ipcRenderer.send('relog');
+}

@@ -14,7 +14,8 @@ app.on('ready', function () {
         title: 'Shift Timer',
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        frame: false
     }); // Create new window
 
     // Load html into window
@@ -39,8 +40,9 @@ function createLogin() {
         webPreferences: {
             nodeIntegration: true
         },
-        width: 350,
-        height: 175
+        width: 300,
+        height: 150,
+        frame: false
     }); // Create new window
 
     // Load html into window
@@ -49,6 +51,8 @@ function createLogin() {
         protocol: 'file:',
         slashes: true
     }));
+
+    loginWindow.setMenu(null);
 }
 
 ipcMain.on('send-code', function(e, code) {
@@ -59,4 +63,13 @@ ipcMain.on('send-code', function(e, code) {
 
 ipcMain.on('user-error', function(e) {
     createLogin();
+});
+
+ipcMain.on('exit', function(e) {
+    app.quit();
+});
+
+ipcMain.on('relog', function(e) {
+    createLogin();
+    loginWindow.focus();
 });
