@@ -15,7 +15,7 @@ app.on('ready', function () {
         webPreferences: {
             nodeIntegration: true
         },
-        frame: false
+        frame: true
     }); // Create new window
 
     // Load html into window
@@ -40,8 +40,8 @@ function createLogin() {
         webPreferences: {
             nodeIntegration: true
         },
-        width: 300,
-        height: 150,
+        width: 250,
+        height: 100,
         frame: false
     }); // Create new window
 
