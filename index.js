@@ -42,7 +42,9 @@ function createLogin() {
         },
         width: 250,
         height: 100,
-        frame: false
+        frame: false,
+        parent: mainWindow,
+        modal: true
     }); // Create new window
 
     // Load html into window
@@ -63,6 +65,10 @@ ipcMain.on('send-code', function(e, code) {
 
 ipcMain.on('user-error', function(e) {
     createLogin();
+});
+
+ipcMain.on('exit', function(e) {
+    app.quit();
 });
 
 ipcMain.on('relog', function(e) {
