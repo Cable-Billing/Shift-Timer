@@ -65,10 +65,6 @@ ipcMain.on('user-error', function(e) {
     createLogin();
 });
 
-ipcMain.on('exit', function(e) {
-    app.quit();
-});
-
 ipcMain.on('relog', function(e) {
     createLogin();
     loginWindow.focus();
