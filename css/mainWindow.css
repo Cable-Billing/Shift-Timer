@@ -81,11 +81,14 @@ button:focus {
 }
 
 .shift-start, .shift-end {
-    width: 50%;
+    width: 40%;
     text-align: center;
     font-size: 16pt;
+    border-right: 2px solid black;
 }
 
-.shift-start {
-    border-right: 2px solid black;
+.hours {
+    width: 20%;
+    text-align: center;
+    font-size: 16pt;
 }
