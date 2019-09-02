@@ -7,20 +7,24 @@ const jsonLocation = './assests/employee.json';
 
 let currentEmployee;
 let hasBeenSaved;
+let foundUser;
 
 ipcRenderer.on('send-code', function(e, code) {
+    foundUser = false;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
             if (employee.employeeCode == code) {
                 currentEmployee = code;
                 document.getElementById('employeeName').innerHTML = employee.name;
-            } else {
-                window.alert('User doesn\'t exist');
-                ipcRenderer.send('user-error');
+                loadTimes(currentEmployee);
+                foundUser = true;
             }
         });
+        if (foundUser == false) {
+            window.alert('User doesn\'t exist');
+            ipcRenderer.send('user-error');
+        }
     });
-    loadTimes(code);
 });
 
 function relog() {
@@ -33,9 +37,13 @@ function resetTable() {
 }
 
 function formatTime(epoch) {
+    if (epoch == null) { return ""; }
     var date = new Date(epoch);
-    var formattedTime = "";
-    return date.getDate() + "/" + (date.getMonth + 1) + "/" + date.getFullYear + " " + date.getHours + ":" + date.getMinutes;
+    var hours = date.getHours();
+    if (hours > 12) { hours -= 12; }
+    var minuites = date.getMinutes();
+    if (minuites < 10) { minuites = "0" + minuites; }
+    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + hours + ":" + minuites;
 }
 
 function loadTimes(code) {
@@ -53,7 +61,7 @@ function loadTimes(code) {
 
                     clockInTime.innerHTML = formatTime(shift.clockIn);
                     clockOutTime.innerHTML = formatTime(shift.clockOut);
-                    hours.innerHTML = formatTime(shift.clockOut - shift.clockIn);
+                    hours.innerHTML = shift.clockOut - shift.clockIn;
                 });
             }
         });
@@ -90,7 +98,8 @@ function clock() {
                 saveData(data);
             }
         });
-    });    
+    });
+    loadTimes(currentEmployee);
 }
 
 // Save the JSON
