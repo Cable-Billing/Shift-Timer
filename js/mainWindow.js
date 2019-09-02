@@ -1,7 +1,7 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
 const $ = require('jquery');
 const fs = require('fs');
+const { ipcRenderer } = electron;
 
 const jsonLocation = './assests/employee.json';
 
@@ -20,16 +20,50 @@ ipcRenderer.on('send-code', function(e, code) {
             }
         });
     });
+    loadTimes(code);
 });
 
 function relog() {
     ipcRenderer.send('relog');
 }
 
+function resetTable() {
+    var table = document.getElementById('shift-data-table');
+    table.innerHTML = '<tr class="heading-row"><td class="shift-start">Shift Start</td><td class="shift-end">Shift End</td><td class="hours">Hours</td></tr>';
+}
+
+function formatTime(epoch) {
+    var date = new Date(epoch);
+    var formattedTime = "";
+    return date.getDate() + "/" + (date.getMonth + 1) + "/" + date.getFullYear + " " + date.getHours + ":" + date.getMinutes;
+}
+
+function loadTimes(code) {
+    var table = document.getElementById('shift-data-table');
+    resetTable();
+
+    $.getJSON(jsonLocation, function(data) {
+        data.forEach(employee => {
+            if (employee.employeeCode == code) {
+                employee.shifts.forEach(shift => {
+                    var row = table.insertRow(1);
+                    var clockInTime = row.insertCell(0);
+                    var clockOutTime = row.insertCell(1);
+                    var hours = row.insertCell(2);
+
+                    clockInTime.innerHTML = formatTime(shift.clockIn);
+                    clockOutTime.innerHTML = formatTime(shift.clockOut);
+                    hours.innerHTML = formatTime(shift.clockOut - shift.clockIn);
+                });
+            }
+        });
+    });
+}
+
 function clock() {
     hasBeenSaved = false;
     $.getJSON(jsonLocation, function(data) {
-        data.forEach( employee => {
+        data.forEach(employee => {
             if (employee.employeeCode == currentEmployee) {
                 // The correct employee has been selected
 
@@ -62,7 +96,7 @@ function clock() {
 // Save the JSON
 function saveData(data) {
     if (hasBeenSaved) { console.log('Already altered'); return; }
-    
+
     var json = JSON.stringify(data);
     fs.writeFile(jsonLocation, json, function (error) {
         if (error) throw error;
