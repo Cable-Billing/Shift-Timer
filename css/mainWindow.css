@@ -38,26 +38,13 @@ button:focus {
 
 .right button {
     height: 40px;
+    width: 40px;
     font-size: 12pt;
     float: right;
     margin-left: 5px;
     background-color: white;
     border-radius: 5px;
     border: none;
-}
-
-.relog {
-    width: 40px;
-}
-
-.in {
-    width: 60px;
-    color: green;
-}
-
-.out {
-    width: 60px;
-    color: red;
 }
 
 .table {

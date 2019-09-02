@@ -1,12 +1,1 @@
-[
-    {
-        "name": "Caleb",
-        "employeeCode": "ctb",
-        "shifts": [
-            {
-                "clockIn": "2019-08-29T12:19:18+0000",
-                "clockOut": "2019-08-29T13:19:18+0000"
-            }
-        ]
-    }
-]
+[{"name":"Caleb","employeeCode":"ctb","shifts":[]}]
