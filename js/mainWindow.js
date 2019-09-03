@@ -11,10 +11,11 @@ let foundUser;
 
 ipcRenderer.on('send-code', function(e, code) {
     foundUser = false;
+    currentEmployee = code;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.employeeCode == code) {
-                currentEmployee = code;
+            if (employee.employeeCode == currentEmployee) {
+                currentEmployee = currentEmployee;
                 document.getElementById('employeeName').innerHTML = employee.name;
                 loadTimes(currentEmployee);
                 foundUser = true;
@@ -61,7 +62,7 @@ function loadTimes(code) {
 
                     clockInTime.innerHTML = formatTime(shift.clockIn);
                     clockOutTime.innerHTML = formatTime(shift.clockOut);
-                    
+
                     if (shift.clockOut == null) {
                         hours.innerHTML = "0";
                     } else {
