@@ -1,5 +1,5 @@
 const electron = require('electron');
-const $ = require('jquery');
+const $ = require('./js/jquery-3.4.1.min.js');
 const fs = require('fs');
 const { ipcRenderer } = electron;
 
@@ -61,7 +61,12 @@ function loadTimes(code) {
 
                     clockInTime.innerHTML = formatTime(shift.clockIn);
                     clockOutTime.innerHTML = formatTime(shift.clockOut);
-                    hours.innerHTML = shift.clockOut - shift.clockIn;
+                    
+                    if (shift.clockOut == null) {
+                        hours.innerHTML = "0";
+                    } else {
+                        hours.innerHTML = (((shift.clockOut - shift.clockIn) / 1000) / 60) / 60;
+                    }
                 });
             }
         });
