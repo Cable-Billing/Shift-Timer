@@ -1,1 +1,1 @@
-[{"name":"Caleb Billing","employeeCode":"ctb","shifts":[{"clockIn":1567601294126,"clockOut":1567601295573}]},{"name":"Test From Test Co","employeeCode":"test","shifts":[]}]
+[{"name":"Caleb Billing","employeeCode":"ctb","shifts":[{"clockIn":1567601294126,"clockOut":1567601295573},{"clockIn":1567602195902,"clockOut":1567602200822},{"clockIn":1567602233188,"clockOut":1567602233315},{"clockIn":1567602234670,"clockOut":1567602235385}]},{"name":"Test From Test Co","employeeCode":"test","shifts":[{"clockIn":1567602247782,"clockOut":null}]}]

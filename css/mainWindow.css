@@ -49,6 +49,10 @@ button:focus {
     border: 1px solid green;
 }
 
+#new-user, #sick-user {
+    display: none;
+}
+
 .table {
     position: fixed;
     overflow-y: scroll;

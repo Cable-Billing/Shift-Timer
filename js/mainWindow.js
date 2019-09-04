@@ -24,6 +24,16 @@ ipcRenderer.on('send-code', function(e, code) {
         if (foundUser == false) {
             window.alert('User doesn\'t exist');
             ipcRenderer.send('user-error');
+        } else {
+            if (currentEmployee == "ctb") {
+                // Add admin buttons
+                document.getElementById("sick-user").style.display = "block";
+                document.getElementById("new-user").style.display = "block";
+            } else {
+                // Remove admin buttons
+                document.getElementById("sick-user").style.display = "none";
+                document.getElementById("new-user").style.display = "none";
+            }
         }
     });
 });
@@ -66,8 +76,8 @@ function loadTimes() {
                     if (shift.clockOut == null) {
                         hours.innerHTML = "0";
                     } else {
-                        //hours.innerHTML = (((shift.clockOut - shift.clockIn) / 1000) / 60) / 60;
-                        hours.innerHTML = ((shift.clockOut - shift.clockIn) / 1000).toFixed(2);
+                        hours.innerHTML = ((((shift.clockOut - shift.clockIn) / 1000) / 60) / 60).toFixed(2);
+                        // hours.innerHTML = ((shift.clockOut - shift.clockIn) / 1000).toFixed(2);
                     }
                 });
             }
