@@ -1,1 +1,1 @@
-[{"name":"Caleb Billing","employeeCode":"ctb","shifts":[]},{"name":"Test From Test Co","employeeCode":"test","shifts":[]}]
+[{"name":"Caleb Billing","employeeCode":"ctb","shifts":[{"clockIn":1567601294126,"clockOut":1567601295573}]},{"name":"Test From Test Co","employeeCode":"test","shifts":[]}]
