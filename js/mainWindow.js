@@ -17,7 +17,7 @@ ipcRenderer.on('send-code', function(e, code) {
             if (employee.employeeCode == currentEmployee) {
                 currentEmployee = currentEmployee;
                 document.getElementById('employeeName').innerHTML = employee.name;
-                loadTimes(currentEmployee);
+                loadTimes();
                 foundUser = true;
             }
         });
@@ -47,13 +47,13 @@ function formatTime(epoch) {
     return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + hours + ":" + minuites;
 }
 
-function loadTimes(code) {
+function loadTimes() {
     var table = document.getElementById('shift-data-table');
     resetTable();
 
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.employeeCode == code) {
+            if (employee.employeeCode == currentEmployee) {
                 employee.shifts.forEach(shift => {
                     var row = table.insertRow(1);
                     var clockInTime = row.insertCell(0);
@@ -66,7 +66,8 @@ function loadTimes(code) {
                     if (shift.clockOut == null) {
                         hours.innerHTML = "0";
                     } else {
-                        hours.innerHTML = (((shift.clockOut - shift.clockIn) / 1000) / 60) / 60;
+                        //hours.innerHTML = (((shift.clockOut - shift.clockIn) / 1000) / 60) / 60;
+                        hours.innerHTML = ((shift.clockOut - shift.clockIn) / 1000).toFixed(2);
                     }
                 });
             }
@@ -81,31 +82,32 @@ function clock() {
             if (employee.employeeCode == currentEmployee) {
                 // The correct employee has been selected
 
+                var table = document.getElementById('shift-data-table');
+
                 // Get the current time
                 var date = new Date();
                 var currentTime = date.getTime();
 
-                // If there is nothing in the shifts array add a new clock in
-                if (employee.shifts.length == 0) {
-                    employee.shifts.push({ "clockIn": currentTime, "clockOut": null });
-                    saveData(data);
-                }
-
                 //Find an open slot to clock out
                 employee.shifts.forEach(shift => {
                     if (shift.clockOut == null) {
+                        // Add the time to the JSON
                         shift.clockOut = currentTime;
+
+                        //Save data
                         saveData(data);
                     }
                 });
 
                 // Checked everything so they must be clocking in
                 employee.shifts.push({ "clockIn": currentTime, "clockOut": null });
+
+                //Save data
                 saveData(data);
             }
         });
     });
-    loadTimes(currentEmployee);
+    setTimeout(loadTimes, 100);
 }
 
 // Save the JSON
