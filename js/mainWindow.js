@@ -125,22 +125,34 @@ function saveData(data) {
     if (hasBeenSaved) { console.log('Already altered'); return; }
 
     var json = JSON.stringify(data);
-    fs.writeFile(jsonLocation, json, function (error) {
+    fs.writeFile(jsonLocation, json, function(error) {
         if (error) throw error;
         console.log('complete');
     });
     hasBeenSaved = true;
 }
 
-function addUser(username, userCode) {
+ipcRenderer.on('send-user-data', function(e, username, userCode) {
     hasBeenSaved = false;
-    var newuser = '{ "name":' + username + ', "employeeCode": '+ userCode + ', "shifts": [] }';
+    var newuser = new Object();
+    newuser.name = username;
+    newuser.employeeCode = userCode;
+    newuser.shifts = [];
+    //var newuser = '{"name":"' + username + '","employeeCode":'+ userCode + ',"shifts":[]}';
 
     $.getJSON(jsonLocation, function(data) {
         data.push(newuser);
+
+        // var json = JSON.stringify(data);
+        // fs.write(jsonLocation, json, function(error) {
+        //     if (error) throw error;
+        //     console.log('user added');
+        // });
         saveData(data);
     });
-}
+
+    window.alert('New user has been created.');
+});
 
 function newUserWindow() {
     ipcRenderer.send('new-user');

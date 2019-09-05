@@ -99,3 +99,9 @@ ipcMain.on('new-user', function(e) {
 
     newUserWindow.focus();
 });
+
+ipcMain.on('send-user-data', function(e, username, usercode) {
+    mainWindow.webContents.send('send-user-data', username, usercode);
+    newUserWindow.close();
+    mainWindow.focus();
+});
