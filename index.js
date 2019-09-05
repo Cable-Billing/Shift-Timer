@@ -6,6 +6,7 @@ const { app, BrowserWindow, Menu, remote, ipcMain } = electron;
 
 let mainWindow;
 let loginWindow;
+let newUserWindow;
 
 // Listen for the app to be ready
 app.on('ready', function () {
@@ -74,4 +75,27 @@ ipcMain.on('exit', function(e) {
 ipcMain.on('relog', function(e) {
     createLogin();
     loginWindow.focus();
+});
+
+ipcMain.on('new-user', function(e) {
+    newUserWindow = new BrowserWindow({
+        title: 'Login',
+        webPreferences: {
+            nodeIntegration: true
+        },
+        width: 300,
+        height: 250,
+        frame: true,
+    }); // Create new window
+
+    // Load html into window
+    newUserWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'newUserWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    newUserWindow.setMenu(null);
+
+    newUserWindow.focus();
 });

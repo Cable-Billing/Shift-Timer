@@ -44,7 +44,7 @@ function relog() {
 
 function resetTable() {
     var table = document.getElementById('shift-data-table');
-    table.innerHTML = '<tr class="heading-row"><td class="shift-start">Shift Start</td><td class="shift-end">Shift End</td><td class="hours">Hours</td></tr>';
+    table.innerHTML = '<tr class="heading-row"><th class="shift-start">Shift Start</th><th class="shift-end">Shift End</th><th class="hours">Hours</td></tr>';
 }
 
 function formatTime(epoch) {
@@ -130,4 +130,18 @@ function saveData(data) {
         console.log('complete');
     });
     hasBeenSaved = true;
+}
+
+function addUser(username, userCode) {
+    hasBeenSaved = false;
+    var newuser = '{ "name":' + username + ', "employeeCode": '+ userCode + ', "shifts": [] }';
+
+    $.getJSON(jsonLocation, function(data) {
+        data.push(newuser);
+        saveData(data);
+    });
+}
+
+function newUserWindow() {
+    ipcRenderer.send('new-user');
 }

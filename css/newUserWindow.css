@@ -1,0 +1,10 @@
+button {
+    border: 1px solid green;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+button:focus {
+    outline: none;
+}
