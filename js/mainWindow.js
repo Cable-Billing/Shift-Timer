@@ -138,16 +138,9 @@ ipcRenderer.on('send-user-data', function(e, username, userCode) {
     newuser.name = username;
     newuser.employeeCode = userCode;
     newuser.shifts = [];
-    //var newuser = '{"name":"' + username + '","employeeCode":'+ userCode + ',"shifts":[]}';
 
     $.getJSON(jsonLocation, function(data) {
         data.push(newuser);
-
-        // var json = JSON.stringify(data);
-        // fs.write(jsonLocation, json, function(error) {
-        //     if (error) throw error;
-        //     console.log('user added');
-        // });
         saveData(data);
     });
 
