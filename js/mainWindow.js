@@ -60,6 +60,7 @@ function formatTime(epoch) {
 function loadTimes() {
     var table = document.getElementById('shift-data-table');
     resetTable();
+    var totalTime = 0;
 
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
@@ -76,11 +77,18 @@ function loadTimes() {
                     if (shift.clockOut == null) {
                         hours.innerHTML = "0";
                     } else {
-                        hours.innerHTML = ((((shift.clockOut - shift.clockIn) / 1000) / 60) / 60).toFixed(2);
+                        time = ((((shift.clockOut - shift.clockIn) / 1000) / 60) / 60).toFixed(2);
+                        totalTime += parseFloat(time);
+                        hours.innerHTML = time;
                     }
                 });
             }
         });
+        totalRowCount = $("#shift-data-table tr").length;
+        var row = table.insertRow(totalRowCount);
+        row.insertCell(0);
+        row.insertCell(1);
+        row.insertCell(2).innerHTML = "Total: " + totalTime;
     });
 }
 
