@@ -132,7 +132,8 @@ function saveData(data) {
     if (hasBeenSaved) { console.log('Already altered'); return; }
 
     var json = JSON.stringify(data);
-    fs.writeFile(jsonLocation, json, function(error) {
+    fs.unlinkSync(jsonLocation);
+    fs.appendFileSync(jsonLocation, json, function(error) {
         if (error) throw error;
         console.log('complete');
     });
@@ -175,7 +176,8 @@ function eraseShifts() {
                 employee.shifts = [];
             }
             var json = JSON.stringify(data);
-            fs.writeFile(jsonLocation, json, function (error) {
+            fs.unlinkSync(jsonLocation);
+            fs.appendFileSync(jsonLocation, json, function (error) {
                 if (error) throw error;
                 console.log('complete');
             });
