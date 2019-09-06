@@ -6,8 +6,9 @@ const { ipcRenderer } = electron;
 const jsonLocation = './assests/employee.json';
 
 let currentEmployee;
-let hasBeenSaved;
-let foundUser;
+let hasBeenSaved = false;
+let foundUser = false;
+let cooldown = false;
 
 ipcRenderer.on('send-code', function(e, code) {
     foundUser = false;
@@ -93,6 +94,7 @@ function loadTimes() {
 }
 
 function clock() {
+    if (cooldown) return;
     hasBeenSaved = false;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
@@ -125,6 +127,18 @@ function clock() {
         });
     });
     setTimeout(loadTimes, 100);
+    cooldown = true;
+    document.getElementById('clock').innerHTML = "<b>3</b>";
+    setTimeout(function() {
+        document.getElementById('clock').innerHTML = "<b>2</b>";
+    }, 1000);
+    setTimeout(function () {
+        document.getElementById('clock').innerHTML = "<b>1</b>";
+    }, 2000);
+    setTimeout(function () {
+        document.getElementById('clock').innerHTML = "&#8986";
+        cooldown = false;
+    }, 3000);
 }
 
 // Save the JSON
