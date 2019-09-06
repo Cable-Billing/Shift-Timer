@@ -100,8 +100,8 @@ ipcMain.on('new-user', function(e) {
     newUserWindow.focus();
 });
 
-ipcMain.on('send-user-data', function(e, username, usercode) {
-    mainWindow.webContents.send('send-user-data', username, usercode);
+ipcMain.on('send-user-data', function(e, username, usercode, admin) {
+    mainWindow.webContents.send('send-user-data', username, usercode, admin);
     newUserWindow.close();
     mainWindow.focus();
 });

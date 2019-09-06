@@ -11,11 +11,10 @@ let foundUser;
 
 ipcRenderer.on('send-code', function(e, code) {
     foundUser = false;
-    currentEmployee = code;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.employeeCode == currentEmployee) {
-                currentEmployee = currentEmployee;
+            if (employee.code == code) {
+                currentEmployee = employee;
                 document.getElementById('employeeName').innerHTML = employee.name;
                 loadTimes();
                 foundUser = true;
@@ -25,7 +24,7 @@ ipcRenderer.on('send-code', function(e, code) {
             window.alert('User doesn\'t exist');
             ipcRenderer.send('user-error');
         } else {
-            if (currentEmployee == "ctb") {
+            if (currentEmployee.admin) {
                 // Add admin buttons
                 document.getElementById("sick-user").style.display = "block";
                 document.getElementById("new-user").style.display = "block";
@@ -63,7 +62,7 @@ function loadTimes() {
 
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.employeeCode == currentEmployee) {
+            if (employee.code == currentEmployee.code) {
                 employee.shifts.forEach(shift => {
                     var row = table.insertRow(1);
                     var clockInTime = row.insertCell(0);
@@ -89,7 +88,7 @@ function clock() {
     hasBeenSaved = false;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.employeeCode == currentEmployee) {
+            if (employee.code == currentEmployee) {
                 // The correct employee has been selected
 
                 var table = document.getElementById('shift-data-table');
@@ -132,11 +131,18 @@ function saveData(data) {
     hasBeenSaved = true;
 }
 
-ipcRenderer.on('send-user-data', function(e, username, userCode) {
+ipcRenderer.on('send-user-data', function(e, username, userCode, admin) {
     hasBeenSaved = false;
     var newuser = new Object();
     newuser.name = username;
-    newuser.employeeCode = userCode;
+    newuser.code = userCode;
+
+    if (admin) {
+        newuser.admin = true;
+    } else {
+        newuser.admin = false;
+    }
+
     newuser.shifts = [];
 
     $.getJSON(jsonLocation, function(data) {
