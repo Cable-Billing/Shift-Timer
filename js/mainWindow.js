@@ -88,7 +88,7 @@ function loadTimes() {
         var row = table.insertRow(totalRowCount);
         row.insertCell(0);
         row.insertCell(1);
-        row.insertCell(2).innerHTML = "Total: " + totalTime;
+        row.insertCell(2).innerHTML = "<b>Total: " + totalTime + "</b>";
     });
 }
 
@@ -163,4 +163,23 @@ ipcRenderer.on('send-user-data', function(e, username, userCode, admin) {
 
 function newUserWindow() {
     ipcRenderer.send('new-user');
+}
+
+function eraseShifts() {
+
+    if (!confirm("Are you sure you want to erase " + currentEmployee.name + "'s shifts?")) return;
+
+    $.getJSON(jsonLocation, function(data) {
+        data.forEach(employee => {
+            if (employee.code == currentEmployee.code) {
+                employee.shifts = [];
+            }
+            var json = JSON.stringify(data);
+            fs.writeFile(jsonLocation, json, function (error) {
+                if (error) throw error;
+                console.log('complete');
+            });
+        });
+    });
+    setTimeout(loadTimes, 100);
 }
