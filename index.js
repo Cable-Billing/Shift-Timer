@@ -84,8 +84,8 @@ ipcMain.on('new-user', function(e) {
             nodeIntegration: true
         },
         width: 300,
-        height: 250,
-        frame: true,
+        height: 275,
+        frame: true
     }); // Create new window
 
     // Load html into window

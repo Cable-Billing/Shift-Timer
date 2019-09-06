@@ -48,12 +48,13 @@ function resetTable() {
 
 function formatTime(epoch) {
     if (epoch == null) { return ""; }
+    var ampm = "am";
     var date = new Date(epoch);
     var hours = date.getHours();
-    if (hours > 12) { hours -= 12; }
+    if (hours > 12) { hours -= 12; ampm = "pm"}
     var minuites = date.getMinutes();
     if (minuites < 10) { minuites = "0" + minuites; }
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + hours + ":" + minuites;
+    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + hours + ":" + minuites + ampm;
 }
 
 function loadTimes() {
@@ -76,7 +77,6 @@ function loadTimes() {
                         hours.innerHTML = "0";
                     } else {
                         hours.innerHTML = ((((shift.clockOut - shift.clockIn) / 1000) / 60) / 60).toFixed(2);
-                        // hours.innerHTML = ((shift.clockOut - shift.clockIn) / 1000).toFixed(2);
                     }
                 });
             }
@@ -88,7 +88,7 @@ function clock() {
     hasBeenSaved = false;
     $.getJSON(jsonLocation, function(data) {
         data.forEach(employee => {
-            if (employee.code == currentEmployee) {
+            if (employee.code == currentEmployee.code) {
                 // The correct employee has been selected
 
                 var table = document.getElementById('shift-data-table');

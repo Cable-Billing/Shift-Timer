@@ -1,7 +1,7 @@
 [
     {
         "name":"Caleb Billing",
-        "employeeCode":"ctb",
+        "code":"ctb",
         "admin": true,
         "shifts":[]
     }
