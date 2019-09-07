@@ -1,4 +1,4 @@
-# Shift-Timer v0.8
+# Shift-Timer v1.0
 Created by Caleb Billing for South Coast Animal Hospital
 
 ## Development Dependencies
