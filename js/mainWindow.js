@@ -1,9 +1,10 @@
 const electron = require('electron');
 const $ = require('./js/jquery-3.4.1.min.js');
 const fs = require('fs');
-const { ipcRenderer } = electron;
+const path = require('path');
+const { ipcRenderer, remote } = electron;
 
-const jsonLocation = './assests/employee.json';
+const jsonLocation = path.resolve('./assets/employee.json');
 
 let currentEmployee;
 let hasBeenSaved = false;
