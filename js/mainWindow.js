@@ -200,3 +200,7 @@ function eraseShifts() {
     });
     setTimeout(loadTimes, 100);
 }
+
+function about() {
+    ipcRenderer.send('about');
+}

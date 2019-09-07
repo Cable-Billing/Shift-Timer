@@ -7,6 +7,7 @@ const { app, BrowserWindow, Menu, remote, ipcMain } = electron;
 let mainWindow;
 let loginWindow;
 let newUserWindow;
+let aboutWindow;
 
 // Listen for the app to be ready
 app.on('ready', function () {
@@ -106,4 +107,27 @@ ipcMain.on('send-user-data', function(e, username, usercode, admin) {
     mainWindow.webContents.send('send-user-data', username, usercode, admin);
     newUserWindow.close();
     mainWindow.focus();
+});
+
+ipcMain.on('about', function(e) {
+    aboutWindow = new BrowserWindow({
+        title: 'About',
+        webPreferences: {
+            nodeIntegration: true
+        },
+        width: 300,
+        height: 175,
+        frame: true
+    }); // Create new window
+
+    // Load html into window
+    aboutWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'aboutWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    aboutWindow.setMenu(null);
+
+    aboutWindow.focus();
 });
