@@ -2,5 +2,5 @@
 Created by Caleb Billing for South Coast Animal Hospital
 
 ## Development Dependencies
-Electron ^6.0.5
-Electron-Packager ^14.0.4
+- Electron ^6.0.5
+- Electron-Packager ^14.0.4
