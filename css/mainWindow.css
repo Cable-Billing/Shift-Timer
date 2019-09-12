@@ -8,7 +8,7 @@ button:focus {
 }
 
 #employeeName {
-    color: white;
+    color: #26822b;
     margin: 0;
     margin-top: 10px;
     margin-left: 5px;
@@ -21,7 +21,7 @@ button:focus {
     padding: 0;
     width: calc(100vw - 10px);
     height: calc(50px - 10px);
-    background-image: linear-gradient(to bottom right, green, white);
+    background-image: linear-gradient(to bottom left, #26822b, white);
     padding: 5px;
     align-content: center;
 }
@@ -46,7 +46,7 @@ button:focus {
     margin-left: 5px;
     background-color: white;
     border-radius: 5px;
-    border: 1px solid green;
+    border: 1px solid #26822b;
 }
 
 #new-user, #sick-user {
@@ -77,7 +77,7 @@ button:focus {
 
 .heading-row {
     width: 100%;
-    border-bottom: 2px solid green;
+    border-bottom: 2px solid #26822b;
 }
 
 .shift-start, .shift-end {
@@ -85,8 +85,8 @@ button:focus {
     text-align: center;
     font-size: 16pt;
     font-weight: bold;
-    color: green;
-    border-right: 2px solid green;
+    color: #26822b;
+    border-right: 2px solid #26822b;
 }
 
 .hours {
@@ -94,7 +94,7 @@ button:focus {
     text-align: center;
     font-size: 16pt;
     font-weight: bold;
-    color: green;
+    color: #26822b;
 }
 
 .img-container {
@@ -102,7 +102,7 @@ button:focus {
     bottom: 0;
     width: 100vw;
     height: 75px;
-    background-image: linear-gradient(to top left, green, white);
+    background-image: linear-gradient(to top right, #26822b, white);
 }
 
 .scah-img {
