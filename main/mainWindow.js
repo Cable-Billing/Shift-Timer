@@ -1,5 +1,5 @@
 const electron = require('electron');
-const $ = require('./js/jquery-3.4.1.min.js');
+const $ = require('../js/jquery-3.4.1.min.js');
 const fs = require('fs');
 const path = require('path');
 const { ipcRenderer, remote } = electron;
