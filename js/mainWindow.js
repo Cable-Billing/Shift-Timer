@@ -28,10 +28,12 @@ ipcRenderer.on('send-code', function(e, code) {
         } else {
             if (currentEmployee.admin) {
                 // Add admin buttons
+                document.getElementById("erase-shifts").style.display = "block";
                 document.getElementById("sick-user").style.display = "block";
                 document.getElementById("new-user").style.display = "block";
             } else {
                 // Remove admin buttons
+                document.getElementById("erase-shifts").style.display = "none";
                 document.getElementById("sick-user").style.display = "none";
                 document.getElementById("new-user").style.display = "none";
             }

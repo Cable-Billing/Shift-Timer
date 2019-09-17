@@ -21,7 +21,7 @@ button:focus {
     padding: 0;
     width: calc(100vw - 10px);
     height: calc(50px - 10px);
-    background-image: linear-gradient(to bottom left, #26822b, white);
+    background-image: linear-gradient(to left, #26822b, white);
     padding: 5px;
     align-content: center;
 }
@@ -46,10 +46,10 @@ button:focus {
     margin-left: 5px;
     background-color: white;
     border-radius: 5px;
-    border: 1px solid #26822b;
+    border: none;
 }
 
-#new-user, #sick-user {
+#erase-shifts, #new-user, #sick-user {
     display: none;
 }
 
@@ -102,11 +102,12 @@ button:focus {
     bottom: 0;
     width: 100vw;
     height: 75px;
-    background-image: linear-gradient(to top right, #26822b, white);
+    background-image: linear-gradient(to right, #26822b, white);
 }
 
 .scah-img {
     height: 75px;
     z-index: 1;
     margin-left: 15px;
+    float: right;
 }

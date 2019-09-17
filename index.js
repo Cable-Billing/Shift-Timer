@@ -27,7 +27,7 @@ app.on('ready', function () {
         slashes: true
     }));
 
-    mainWindow.setMenu(null);
+    //mainWindow.setMenu(null);
 
     createLogin();
 
