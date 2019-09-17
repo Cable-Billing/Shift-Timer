@@ -123,7 +123,7 @@ ipcMain.on('about', function(e) {
 
     // Load html into window
     aboutWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'aboutWindow.html'),
+        pathname: path.join(__dirname, 'about/aboutWindow.html'),
         protocol: 'file:',
         slashes: true
     }));
