@@ -145,7 +145,7 @@ ipcMain.on('employee-list', function(e) {
     });
 
     employeeListWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'employeeListWindow.html'),
+        pathname: path.join(__dirname, 'list/employeeListWindow.html'),
         protocol: 'file:',
         slashes: true
     }));
