@@ -94,7 +94,7 @@ ipcMain.on('new-user', function(e) {
 
     // Load html into window
     newUserWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'newUserWindow.html'),
+        pathname: path.join(__dirname, 'new/newUserWindow.html'),
         protocol: 'file:',
         slashes: true
     }));
