@@ -23,17 +23,17 @@ ipcRenderer.on('send-code', function(e, code) {
             }
         });
         if (foundUser == false) {
-            window.alert('User doesn\'t exist');
+            window.alert(`User doesn't exist`);
             ipcRenderer.send('user-error');
         } else {
             if (currentEmployee.admin) {
                 // Add admin buttons
-                document.getElementById("erase-shifts").style.display = "block";
+                document.getElementById("employee-list").style.display = "block";
                 document.getElementById("sick-user").style.display = "block";
                 document.getElementById("new-user").style.display = "block";
             } else {
                 // Remove admin buttons
-                document.getElementById("erase-shifts").style.display = "none";
+                document.getElementById("employee-list").style.display = "none";
                 document.getElementById("sick-user").style.display = "none";
                 document.getElementById("new-user").style.display = "none";
             }
@@ -57,8 +57,8 @@ function formatTime(epoch) {
     var hours = date.getHours();
     if (hours > 12) { hours -= 12; ampm = "pm"}
     var minuites = date.getMinutes();
-    if (minuites < 10) { minuites = "0" + minuites; }
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + hours + ":" + minuites + ampm;
+    if (minuites < 10) { minuites = `0${minuites}`; }
+    return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()} ${hours}:${minuites}${ampm}`;
 }
 
 function loadTimes() {
@@ -92,7 +92,7 @@ function loadTimes() {
         var row = table.insertRow(totalRowCount);
         row.insertCell(0);
         row.insertCell(1);
-        row.insertCell(2).innerHTML = "<b>Total: " + totalTime + "</b>";
+        row.insertCell(2).innerHTML = `<b>Total: ${totalTime}</b>`;
     });
 }
 
@@ -183,24 +183,8 @@ function newUserWindow() {
     ipcRenderer.send('new-user');
 }
 
-function eraseShifts() {
-
-    if (!confirm("Are you sure you want to erase " + currentEmployee.name + "'s shifts?")) return;
-
-    $.getJSON(jsonLocation, function(data) {
-        data.forEach(employee => {
-            if (employee.code == currentEmployee.code) {
-                employee.shifts = [];
-            }
-            var json = JSON.stringify(data);
-            fs.unlinkSync(jsonLocation);
-            fs.appendFileSync(jsonLocation, json, function (error) {
-                if (error) throw error;
-                console.log('complete');
-            });
-        });
-    });
-    setTimeout(loadTimes, 100);
+function employeeListWindow() {
+    ipcRenderer.send('employee-list');
 }
 
 function about() {

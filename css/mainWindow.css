@@ -49,7 +49,7 @@ button:focus {
     border: none;
 }
 
-#erase-shifts, #new-user, #sick-user {
+#employee-list, #new-user, #sick-user {
     display: none;
 }
 

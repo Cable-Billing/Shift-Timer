@@ -8,6 +8,7 @@ let mainWindow;
 let loginWindow;
 let newUserWindow;
 let aboutWindow;
+let employeeListWindow;
 
 // Listen for the app to be ready
 app.on('ready', function () {
@@ -130,4 +131,26 @@ ipcMain.on('about', function(e) {
     aboutWindow.setMenu(null);
 
     aboutWindow.focus();
+});
+
+ipcMain.on('employee-list', function(e) {
+    employeeListWindow = new BrowserWindow({
+        title: 'Employee List',
+        webPreferences: {
+            nodeIntegration: true
+        },
+        width: 700,
+        height: 1000,
+        frame: true
+    });
+
+    employeeListWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'employeeListWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    employeeListWindow.setMenu(null);
+
+    employeeListWindow.focus();
 });
